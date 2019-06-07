@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreVehicles", "MoreVehicles\MoreVehicles.csproj", "{E3269763-D905-4A9D-B81F-721B9F00DCA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyTools", "SkyTools\src\SkyTools\SkyTools.csproj", "{F83D96EF-857A-4AA4-8C23-7D258DAD777D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{E3269763-D905-4A9D-B81F-721B9F00DCA4}.Debug|x64.Build.0 = Debug|x64
 		{E3269763-D905-4A9D-B81F-721B9F00DCA4}.Release|x64.ActiveCfg = Release|x64
 		{E3269763-D905-4A9D-B81F-721B9F00DCA4}.Release|x64.Build.0 = Release|x64
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|x64.ActiveCfg = Debug|x64
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|x64.Build.0 = Debug|x64
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|x64.ActiveCfg = Release|x64
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
