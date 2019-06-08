@@ -37,6 +37,13 @@ namespace MoreVehicles
                 return;
             }
 
+            var compatibility = Compatibility.Create();
+            if (compatibility.AreAnyIncompatibleModsActive())
+            {
+                Log.Info($"The 'More Vehicles' mod version {modVersion} cannot be started because of incompatible mods");
+                return;
+            }
+
             Log.Info("The 'More Vehicles' mod has been enabled, version: " + modVersion);
 
             IPatch[] patches =

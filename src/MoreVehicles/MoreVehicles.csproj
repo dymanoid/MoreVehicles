@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CinematicCameraControllerPatch.cs" />
+    <Compile Include="Compatibility.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CodeProcessor.cs" />
     <Compile Include="MoreVehiclesMod.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="VehicleManagerCustomizer.cs" />
     <Compile Include="VehicleManagerPatch.cs" />
     <Compile Include="VehiclePatch.cs" />
+    <Compile Include="WorkshopMods.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GitVersionTask">
