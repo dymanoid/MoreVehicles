@@ -97,6 +97,11 @@ namespace MoreVehicles
         /// <param name="mode">The mode the game level is loaded in.</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
+            if (patcher == null)
+            {
+                return;
+            }
+
             switch (mode)
             {
                 case LoadMode.NewGame:
