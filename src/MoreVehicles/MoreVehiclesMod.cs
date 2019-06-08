@@ -37,8 +37,7 @@ namespace MoreVehicles
                 return;
             }
 
-            var compatibility = Compatibility.Create();
-            if (compatibility.AreAnyIncompatibleModsActive())
+            if (Compatibility.AreAnyIncompatibleModsActive())
             {
                 Log.Info($"The 'More Vehicles' mod version {modVersion} cannot be started because of incompatible mods");
                 return;
@@ -66,6 +65,7 @@ namespace MoreVehicles
             var patchedMethods = patcher.Apply();
             if (patchedMethods.Count == patches.Length)
             {
+                PluginManager.instance.eventPluginsChanged += ModsChanged;
                 VehicleManagerCustomizer.Customize();
             }
             else
@@ -84,9 +84,11 @@ namespace MoreVehicles
                 return;
             }
 
-            VehicleManagerCustomizer.Revert();
+            PluginManager.instance.eventPluginsChanged -= ModsChanged;
+
             patcher.Revert();
             patcher = null;
+            VehicleManagerCustomizer.Revert();
 
             Log.Info("The 'More Vehicles' mod has been disabled.");
         }
@@ -133,5 +135,14 @@ namespace MoreVehicles
 
         private static bool IsWorkshopMode()
             => PluginManager.instance.GetPluginsInfo().Any(pi => pi.publishedFileID.AsUInt64 == WorkshopId);
+
+        private void ModsChanged()
+        {
+            if (Compatibility.AreAnyIncompatibleModsActive())
+            {
+                Log.Info($"The 'More Vehicles' mod version {modVersion} cannot be started because of incompatible mods");
+                OnDisabled();
+            }
+        }
     }
 }
