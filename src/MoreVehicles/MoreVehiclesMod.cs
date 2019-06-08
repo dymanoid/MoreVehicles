@@ -71,13 +71,13 @@ namespace MoreVehicles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Must be instance method due to C:S API")]
         public void OnDisabled()
         {
-            if (!isWorkshopMode)
+            if (!isWorkshopMode || patcher == null)
             {
                 return;
             }
 
             VehicleManagerCustomizer.Revert();
-            patcher?.Revert();
+            patcher.Revert();
             patcher = null;
 
             Log.Info("The 'More Vehicles' mod has been disabled.");
