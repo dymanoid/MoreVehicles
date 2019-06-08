@@ -10,6 +10,11 @@ namespace MoreVehicles
     internal static class Constants
     {
         /// <summary>
+        /// A string representing the mod name in the save game metadata.
+        /// </summary>
+        public const string MetadataModName = "User/More Vehicles";
+
+        /// <summary>
         /// The maximum active vehicle count in the vanilla game (array buffer size).
         /// </summary>
         public const int VanillaMaxVehicleCount = 16384;

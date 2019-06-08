@@ -102,13 +102,11 @@ namespace MoreVehicles
 
                 var vehicleCountGetter = AccessTools.Method(
                     typeof(VehicleManager_Data_Deserialize),
-                    nameof(VehicleManager_Data_Deserialize.GetMaxVehicleCount),
-                    new[] { typeof(DataSerializer) });
+                    nameof(VehicleManager_Data_Deserialize.GetMaxVehicleCount));
 
                 var parkedVehicleCountGetter = AccessTools.Method(
                     typeof(VehicleManager_Data_Deserialize),
-                    nameof(VehicleManager_Data_Deserialize.GetMaxParkedVehicleCount),
-                    new[] { typeof(DataSerializer) });
+                    nameof(VehicleManager_Data_Deserialize.GetMaxParkedVehicleCount));
 
                 const string bufferName = nameof(Array16<Vehicle>.m_buffer);
 
@@ -194,10 +192,12 @@ namespace MoreVehicles
                     return false;
                 }
 
-                // Replace the 'ldloc' + 'ldlen' instructions with a call to our custom method
+                // Remove the 'ldloc' instruction completely...
+                instructionList.RemoveAt(--index);
+
+                // ...and replace the 'ldlen' instruction with a call to our custom method
                 // which determines the vehicle count for deserialization.
                 // For our 'patched' save games, a new value will be used. For new games and old saves - the standard value.
-                instructionList[index - 1] = new CodeInstruction(OpCodes.Ldarg_1);
                 instructionList[index] = new CodeInstruction(OpCodes.Call, arraySizeGetter);
 
                 index = instructionList.Count - 1;
@@ -219,16 +219,22 @@ namespace MoreVehicles
                 return true;
             }
 
-            private static int GetMaxVehicleCount(DataSerializer dataSerializer)
+            private static bool IsModEnabled()
             {
-                return dataSerializer.version > BuildConfig.SAVE_DATA_FORMAT_VERSION
+                var mods = SimulationManager.instance.m_metaData?.m_modOverride;
+                return mods != null && mods.TryGetValue(MetadataModName, out bool modEnabled) && modEnabled;
+            }
+
+            private static int GetMaxVehicleCount()
+            {
+                return IsModEnabled()
                     ? ModdedMaxVehicleCount
                     : VanillaMaxVehicleCount;
             }
 
-            private static int GetMaxParkedVehicleCount(DataSerializer dataSerializer)
+            private static int GetMaxParkedVehicleCount()
             {
-                return dataSerializer.version > BuildConfig.SAVE_DATA_FORMAT_VERSION
+                return IsModEnabled()
                     ? ModdedMaxVehicleCount
                     : VanillaMaxParkedVehicleCount;
             }

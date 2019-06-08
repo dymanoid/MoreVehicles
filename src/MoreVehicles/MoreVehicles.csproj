@@ -54,7 +54,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildConfigPatch.cs" />
     <Compile Include="CinematicCameraControllerPatch.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CodeProcessor.cs" />

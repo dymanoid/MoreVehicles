@@ -4,6 +4,7 @@
 
 namespace MoreVehicles
 {
+    using System.Collections.Generic;
     using ICities;
     using SkyTools.Patching;
     using SkyTools.Tools;
@@ -38,7 +39,6 @@ namespace MoreVehicles
 
             IPatch[] patches =
             {
-                BuildConfigPatch.SaveDataFormatVersion,
                 CinematicCameraControllerPatch.GetNearestVehicle,
                 CinematicCameraControllerPatch.GetRandomVehicle,
                 CinematicCameraControllerPatch.GetVehicleWithName,
@@ -80,6 +80,41 @@ namespace MoreVehicles
             patcher = null;
 
             Log.Info("The 'More Vehicles' mod has been disabled.");
+        }
+
+        /// <summary>
+        /// Performs mod registration when a game level is loaded.
+        /// </summary>
+        /// <param name="mode">The mode the game level is loaded in.</param>
+        public override void OnLevelLoaded(LoadMode mode)
+        {
+            switch (mode)
+            {
+                case LoadMode.NewGame:
+                case LoadMode.LoadGame:
+                case LoadMode.LoadScenario:
+                case LoadMode.NewGameFromScenario:
+                    break;
+
+                default:
+                    return;
+            }
+
+            var gameMetadata = SimulationManager.instance.m_metaData;
+            if (gameMetadata == null)
+            {
+                return;
+            }
+
+            lock (gameMetadata)
+            {
+                if (gameMetadata.m_modOverride == null)
+                {
+                    gameMetadata.m_modOverride = new Dictionary<string, bool>();
+                }
+
+                gameMetadata.m_modOverride[Constants.MetadataModName] = true;
+            }
         }
 
         // TODO: activate the workshop check
