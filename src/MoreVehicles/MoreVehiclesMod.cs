@@ -68,7 +68,6 @@ namespace MoreVehicles
         }
 
         /// <summary>Called when this mod is disabled.</summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Must be instance method due to C:S API")]
         public void OnDisabled()
         {
             if (!isWorkshopMode || patcher == null)
