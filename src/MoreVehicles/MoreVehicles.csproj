@@ -54,8 +54,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildConfigPatch.cs" />
+    <Compile Include="CinematicCameraControllerPatch.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="CodeProcessor.cs" />
+    <Compile Include="MoreVehiclesMod.cs" />
+    <Compile Include="OutsideConnectionAIPatch.cs" />
+    <Compile Include="PathVisualizerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TouristAIPatch.cs" />
+    <Compile Include="ResidentAIPatch.cs" />
+    <Compile Include="VehicleManagerCustomizer.cs" />
+    <Compile Include="VehicleManagerPatch.cs" />
+    <Compile Include="VehiclePatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GitVersionTask">
