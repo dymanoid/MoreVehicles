@@ -100,11 +100,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)" mkdir "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
-
-echo COPYING TO "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
-xcopy /y /q /d "$(TargetPath)" "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
-xcopy /y /q /d "$(TargetDir)SkyTools.dll" "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"
-xcopy /y /q /d "$(TargetDir)0Harmony.dll" "$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(SolutionName)"</PostBuildEvent>
+    <PostBuildEvent>xcopy /y /q /d "$(TargetPath)" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250"
+xcopy /y /q /d "$(TargetDir)SkyTools.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250"
+xcopy /y /q /d "$(TargetDir)0Harmony.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250"</PostBuildEvent>
   </PropertyGroup>
 </Project>

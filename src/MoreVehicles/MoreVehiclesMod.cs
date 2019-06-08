@@ -5,6 +5,8 @@
 namespace MoreVehicles
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using ColossalFramework.Plugins;
     using ICities;
     using SkyTools.Patching;
     using SkyTools.Tools;
@@ -13,7 +15,7 @@ namespace MoreVehicles
     public sealed class MoreVehiclesMod : LoadingExtensionBase, IUserMod
     {
         private const string HarmonyId = "com.cities_skylines.dymanoid.morevehicles";
-        ////private const long WorkshopId = 0;
+        private const ulong WorkshopId = 1764208250ul;
 
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(MoreVehiclesMod).Assembly);
         private readonly bool isWorkshopMode = IsWorkshopMode();
@@ -117,8 +119,7 @@ namespace MoreVehicles
             }
         }
 
-        // TODO: activate the workshop check
         private static bool IsWorkshopMode()
-            => /*PluginManager.instance.GetPluginsInfo().Any(pi => pi.publishedFileID.AsUInt64 == WorkshopId)*/ true;
+            => PluginManager.instance.GetPluginsInfo().Any(pi => pi.publishedFileID.AsUInt64 == WorkshopId);
     }
 }
