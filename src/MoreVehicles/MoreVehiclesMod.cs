@@ -83,6 +83,7 @@ namespace MoreVehicles
             Log.Info("The 'More Vehicles' mod has been disabled.");
         }
 
+        // TODO: activate the workshop check
         private static bool IsWorkshopMode()
             => /*PluginManager.instance.GetPluginsInfo().Any(pi => pi.publishedFileID.AsUInt64 == WorkshopId)*/ true;
     }
