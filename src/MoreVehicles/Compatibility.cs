@@ -17,7 +17,6 @@ namespace MoreVehicles
         private static readonly ulong[] IncompatibleModIds =
         {
             TrafficManagerPresidentEditionStable,
-            TrafficManagerPresidentEditionLabs,
         };
 
         /// <summary>Checks for enabled incompatible mods and prepares a notification message text if any found.</summary>
