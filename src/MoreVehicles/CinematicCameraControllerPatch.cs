@@ -1,4 +1,4 @@
-﻿// <copyright file="CinematicCameraControllerPatch.cs" company="dymanoid">
+// <copyright file="CinematicCameraControllerPatch.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -27,15 +27,13 @@ namespace MoreVehicles
 
         private sealed class CinematicCameraController_GetRandomVehicle : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(CinematicCameraController).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(CinematicCameraController).GetMethod(
                     nameof(CinematicCameraController.GetRandomVehicle),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(ItemClass.Service), typeof(ItemClass.SubService), typeof(ItemClass.Level) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
@@ -45,15 +43,13 @@ namespace MoreVehicles
 
         private sealed class CinematicCameraController_GetVehicleWithName : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(CinematicCameraController).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(CinematicCameraController).GetMethod(
                     nameof(CinematicCameraController.GetVehicleWithName),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(string) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
@@ -63,15 +59,13 @@ namespace MoreVehicles
 
         private sealed class CinematicCameraController_GetNearestVehicle : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(CinematicCameraController).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(CinematicCameraController).GetMethod(
                     nameof(CinematicCameraController.GetNearestVehicle),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(Vector3) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]

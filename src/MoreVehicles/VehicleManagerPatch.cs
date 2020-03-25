@@ -1,4 +1,4 @@
-﻿// <copyright file="VehicleManagerPatch.cs" company="dymanoid">
+// <copyright file="VehicleManagerPatch.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -31,15 +31,13 @@ namespace MoreVehicles
 
         private sealed class VehicleManager_Data_Deserialize : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(VehicleManager.Data).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(VehicleManager.Data).GetMethod(
                     nameof(VehicleManager.Data.Deserialize),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(DataSerializer) },
                     new ParameterModifier[0]);
-            }
 
             private static int FindLoadLocalInstructionForStoreLocal(
                 List<CodeInstruction> instructions,
@@ -86,12 +84,10 @@ namespace MoreVehicles
                     ? instructions.FindLastIndex(startIndex, Search)
                     : instructions.FindIndex(startIndex, Search);
 
-                bool Search(CodeInstruction i)
-                {
-                    return i.opcode == loadLocalOp
+                bool Search(CodeInstruction i) =>
+                    i.opcode == loadLocalOp
                         && (i.opcode != OpCodes.Ldloc_S && i.opcode != OpCodes.Ldloc
                             || ((LocalBuilder)i.operand).LocalIndex == loadLocalOperand);
-                }
             }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
@@ -225,32 +221,20 @@ namespace MoreVehicles
                 return mods != null && mods.TryGetValue(MetadataModName, out bool modEnabled) && modEnabled;
             }
 
-            private static int GetMaxVehicleCount()
-            {
-                return IsModEnabled()
-                    ? ModdedMaxVehicleCount
-                    : VanillaMaxVehicleCount;
-            }
+            private static int GetMaxVehicleCount() => IsModEnabled() ? ModdedMaxVehicleCount : VanillaMaxVehicleCount;
 
-            private static int GetMaxParkedVehicleCount()
-            {
-                return IsModEnabled()
-                    ? ModdedMaxVehicleCount
-                    : VanillaMaxParkedVehicleCount;
-            }
+            private static int GetMaxParkedVehicleCount() => IsModEnabled() ? ModdedMaxVehicleCount : VanillaMaxParkedVehicleCount;
         }
 
         private sealed class VehicleManager_UpdateData : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(VehicleManager).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(VehicleManager).GetMethod(
                     nameof(VehicleManager.UpdateData),
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(SimulationManager.UpdateMode) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
@@ -263,15 +247,13 @@ namespace MoreVehicles
 
         private sealed class VehicleManager_SimulationStepImpl : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(VehicleManager).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(VehicleManager).GetMethod(
                     "SimulationStepImpl",
                     BindingFlags.Instance | BindingFlags.NonPublic,
                     null,
                     new[] { typeof(int) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]

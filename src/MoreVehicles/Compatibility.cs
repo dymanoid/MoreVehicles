@@ -1,4 +1,4 @@
-﻿// <copyright file="Compatibility.cs" company="dymanoid">
+// <copyright file="Compatibility.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -24,7 +24,7 @@ namespace MoreVehicles
         public static bool AreAnyIncompatibleModsActive()
         {
             var mods = new HashSet<ulong>();
-            foreach (var id in PluginManager.instance.GetPluginsInfo().Select(p => p.publishedFileID.AsUInt64))
+            foreach (ulong id in PluginManager.instance.GetPluginsInfo().Select(p => p.publishedFileID.AsUInt64))
             {
                 mods.Add(id);
             }

@@ -1,4 +1,4 @@
-﻿// <copyright file="PathVisualizerPatch.cs" company="dymanoid">
+// <copyright file="PathVisualizerPatch.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -20,15 +20,13 @@ namespace MoreVehicles
 
         private sealed class PathVisualizer_AddPathsImpl : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(PathVisualizer).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(PathVisualizer).GetMethod(
                     "AddPathsImpl",
                     BindingFlags.Instance | BindingFlags.NonPublic,
                     null,
                     new[] { typeof(int), typeof(int) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]

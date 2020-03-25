@@ -1,4 +1,4 @@
-﻿// <copyright file="VehiclePatch.cs" company="dymanoid">
+// <copyright file="VehiclePatch.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -20,15 +20,13 @@ namespace MoreVehicles
 
         private sealed class Vehicle_GetTargetFrame : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(Vehicle).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(Vehicle).GetMethod(
                     "GetTargetFrame",
                     BindingFlags.Instance | BindingFlags.NonPublic,
                     null,
                     new[] { typeof(VehicleInfo), typeof(ushort) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]

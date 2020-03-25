@@ -1,4 +1,4 @@
-﻿// <copyright file="ResidentAIPatch.cs" company="dymanoid">
+// <copyright file="ResidentAIPatch.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -21,15 +21,13 @@ namespace MoreVehicles
 
         private sealed class ResidentAI_DoRandomMove : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(ResidentAI).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(ResidentAI).GetMethod(
                     "DoRandomMove",
                     BindingFlags.Instance | BindingFlags.NonPublic,
                     null,
                     new Type[0],
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]

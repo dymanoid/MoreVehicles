@@ -1,4 +1,4 @@
-﻿// <copyright file="VehicleManagerCustomizer.cs" company="dymanoid">
+// <copyright file="VehicleManagerCustomizer.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -58,7 +58,7 @@ namespace MoreVehicles
             var arrayField = GetField(arrayFieldName);
             if (arrayField != null)
             {
-                var newArray = new ulong[size];
+                ulong[] newArray = new ulong[size];
                 arrayField.SetValue(VehicleManager.instance, newArray);
             }
         }
