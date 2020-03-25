@@ -1,109 +1,44 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3269763-D905-4A9D-B81F-721B9F00DCA4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MoreVehicles</RootNamespace>
-    <AssemblyName>MoreVehicles</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
+    <AssemblyTitle>MoreVehicles</AssemblyTitle>
+    <Company>dymanoid</Company>
+    <Product>MoreVehicles</Product>
+    <Description>A mod for the Cities:Skylines game</Description>
+    <Copyright>Copyright © 2019-2020, dymanoid</Copyright>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\MoreVehicles.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\bin\Debug\MoreVehicles.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>..\MoreVehicles.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\bin\Release\MoreVehicles.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ColossalManaged, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ICities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CinematicCameraControllerPatch.cs" />
-    <Compile Include="Compatibility.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="CodeProcessor.cs" />
-    <Compile Include="MoreVehiclesMod.cs" />
-    <Compile Include="OutsideConnectionAIPatch.cs" />
-    <Compile Include="PathVisualizerPatch.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TouristAIPatch.cs" />
-    <Compile Include="ResidentAIPatch.cs" />
-    <Compile Include="VehicleManagerCustomizer.cs" />
-    <Compile Include="VehicleManagerPatch.cs" />
-    <Compile Include="VehiclePatch.cs" />
-    <Compile Include="WorkshopMods.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="GitVersionTask">
-      <Version>4.0.0</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Lib.Harmony">
-      <Version>1.2.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.1.118</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SkyTools\src\SkyTools\SkyTools.csproj">
-      <Project>{f83d96ef-857a-4aa4-8c23-7d258dad777d}</Project>
-      <Name>SkyTools</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\MoreVehicles.ruleset">
-      <Link>MoreVehicles.ruleset</Link>
-    </None>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y /q /d "$(TargetPath)" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250"
-xcopy /y /q /d "$(TargetDir)SkyTools.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250"
-xcopy /y /q /d "$(TargetDir)0Harmony.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250"</PostBuildEvent>
+    <TargetFramework>net35</TargetFramework>
+    <AssemblySearchPaths>
+      $(AssemblySearchPaths);
+      $(CitiesSkylinesBinaries)
+    </AssemblySearchPaths>
+    <OutputPath>..\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="1.2.0.1" />
+    <PackageReference Include="GitVersionTask" Version="5.2.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
+    <PackageReference Include="Roslynator.Analyzers" Version="2.3.0" />
+    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="1.0.0-beta" />
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.164" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp" />
+    <Reference Include="ColossalManaged" />
+    <Reference Include="ICities" />
+    <Reference Include="UnityEngine" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SkyTools\src\SkyTools\SkyTools.csproj" />
+  </ItemGroup>
+  <Target Name="DeployToModsDirectory" AfterTargets="Build" DependsOnTargets="Build">
+    <PropertyGroup>
+      <CitiesSkylinesModDir>D:\Data\SteamLibrary\steamapps\workshop\content\255710\1764208250\</CitiesSkylinesModDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <TargetBinaries Include="$(OutputPath)*.dll" />
+    </ItemGroup>
+    <Message Text="Deploying the mod package to: $(CitiesSkylinesModDir)" Importance="high" />
+    <Copy SourceFiles="@(TargetBinaries)" DestinationFolder="$(CitiesSkylinesModDir)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>
