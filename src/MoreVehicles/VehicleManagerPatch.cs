@@ -258,7 +258,10 @@ namespace MoreVehicles
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
             private static IEnumerable<CodeInstruction> Transform(IEnumerable<CodeInstruction> instructions)
-                => CodeProcessor.ReplaceOperands(instructions, 1024, 4096);
+            {
+                var replaced1024 = CodeProcessor.ReplaceOperands(instructions, 1024, 4096);
+                return CodeProcessor.ReplaceOperands(replaced1024, VanillaMaxVehicleCount, ModdedMaxVehicleCount);
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MoreVehicles
             protected override MethodInfo GetMethod() =>
                 typeof(Vehicle).GetMethod(
                     "GetTargetFrame",
-                    BindingFlags.Instance | BindingFlags.NonPublic,
+                    BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(VehicleInfo), typeof(ushort) },
                     new ParameterModifier[0]);
