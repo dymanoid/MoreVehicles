@@ -1,4 +1,4 @@
-﻿// <copyright file="MoreVehiclesMod.cs" company="dymanoid">
+// <copyright file="MoreVehiclesMod.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -31,6 +31,8 @@ namespace MoreVehicles
         /// <summary>Called when this mod is enabled.</summary>
         public void OnEnabled()
         {
+            Log.SetupDebug(Name);
+
             if (!isWorkshopMode)
             {
                 Log.Info($"The 'More Vehicles' mod version {modVersion} cannot be started because of no Steam Workshop");
