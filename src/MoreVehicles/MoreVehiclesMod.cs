@@ -17,6 +17,22 @@ namespace MoreVehicles
         private const string HarmonyId = "com.cities_skylines.dymanoid.morevehicles";
         private const ulong WorkshopId = 1764208250ul;
 
+        private static LoadMode currentloadmode;
+        private static IPatch[] patches =
+        {
+                CinematicCameraControllerPatch.GetNearestVehicle,
+                CinematicCameraControllerPatch.GetRandomVehicle,
+                CinematicCameraControllerPatch.GetVehicleWithName,
+                OutsideConnectionAIPatch.DummyTrafficProbability,
+                PathVisualizerPatch.AddPathsImpl,
+                ResidentAIPatch.DoRandomMove,
+                TouristAIPatch.DoRandomMove,
+                VehicleManagerPatch.DataDeserialize,
+                VehicleManagerPatch.SimulationStepImpl,
+                VehicleManagerPatch.UpdateData,
+                VehiclePatch.GetTargetFrame,
+        };
+
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(MoreVehiclesMod).Assembly);
         private readonly bool isWorkshopMode = IsWorkshopMode();
 
@@ -46,21 +62,6 @@ namespace MoreVehicles
             }
 
             Log.Info("The 'More Vehicles' mod has been enabled, version: " + modVersion);
-
-            IPatch[] patches =
-            {
-                CinematicCameraControllerPatch.GetNearestVehicle,
-                CinematicCameraControllerPatch.GetRandomVehicle,
-                CinematicCameraControllerPatch.GetVehicleWithName,
-                OutsideConnectionAIPatch.DummyTrafficProbability,
-                PathVisualizerPatch.AddPathsImpl,
-                ResidentAIPatch.DoRandomMove,
-                TouristAIPatch.DoRandomMove,
-                VehicleManagerPatch.DataDeserialize,
-                VehicleManagerPatch.SimulationStepImpl,
-                VehicleManagerPatch.UpdateData,
-                VehiclePatch.GetTargetFrame,
-            };
 
             patcher = new MethodPatcher(HarmonyId, patches);
 
@@ -101,6 +102,8 @@ namespace MoreVehicles
         /// <param name="mode">The mode the game level is loaded in.</param>
         public override void OnLevelLoaded(LoadMode mode)
         {
+            currentloadmode = mode;
+
             if (patcher == null)
             {
                 return;
@@ -115,6 +118,18 @@ namespace MoreVehicles
                     break;
 
                 default:
+                    if (!isWorkshopMode || patcher == null)
+                    {
+                        return;
+                    }
+
+                    PluginManager.instance.eventPluginsChanged -= ModsChanged;
+
+                    patcher.Revert();
+                    patcher = null;
+                    VehicleManagerCustomizer.Revert();
+
+                    Log.Info("The 'More Vehicles' mod has been disabled in Map or Asset editor mod");
                     return;
             }
 
@@ -132,6 +147,43 @@ namespace MoreVehicles
                 }
 
                 gameMetadata.m_modOverride[Constants.MetadataModName] = true;
+            }
+        }
+
+        /// <summary>
+        /// Performs mod registration when a game level is unloaded.
+        /// </summary>
+        public override void OnLevelUnloading()
+        {
+            base.OnLevelUnloading();
+            if (patcher == null)
+            {
+                return;
+            }
+
+            switch (currentloadmode)
+            {
+                case LoadMode.NewGame:
+                case LoadMode.LoadGame:
+                case LoadMode.LoadScenario:
+                case LoadMode.NewGameFromScenario:
+                    break;
+
+                default:
+                    var patchedMethods = patcher.Apply();
+                    if (patchedMethods.Count == patches.Length)
+                    {
+                        PluginManager.instance.eventPluginsChanged += ModsChanged;
+                        VehicleManagerCustomizer.Customize();
+                    }
+                    else
+                    {
+                        Log.Error("The 'More Vehicles' mod failed to perform method redirections");
+                        patcher.Revert();
+                        patcher = null;
+                    }
+
+                    return;
             }
         }
 
