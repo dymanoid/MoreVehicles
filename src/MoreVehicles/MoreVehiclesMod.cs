@@ -59,6 +59,7 @@ namespace MoreVehicles
                 VehicleManagerPatch.DataDeserialize,
                 VehicleManagerPatch.SimulationStepImpl,
                 VehicleManagerPatch.UpdateData,
+                VehicleManagerPatch.AirlineModified,
                 VehiclePatch.GetTargetFrame,
             };
 

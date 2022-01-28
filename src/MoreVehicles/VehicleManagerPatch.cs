@@ -29,6 +29,9 @@ namespace MoreVehicles
         /// <summary>Gets the patch for the 'SimulationStepImpl' method.</summary>
         public static IPatch SimulationStepImpl { get; } = new VehicleManager_SimulationStepImpl();
 
+        /// <summary>Gets the patch for the 'AirlineModified' method.</summary>
+        public static IPatch AirlineModified { get; } = new VehicleManager_AirlineModified();
+
         private sealed class VehicleManager_Data_Deserialize : PatchBase
         {
             protected override MethodInfo GetMethod() =>
@@ -261,6 +264,33 @@ namespace MoreVehicles
             {
                 var replaced1024 = CodeProcessor.ReplaceOperands(instructions, 1024, 4096);
                 return CodeProcessor.ReplaceOperands(replaced1024, VanillaMaxVehicleCount, ModdedMaxVehicleCount);
+            }
+        }
+
+        private sealed class VehicleManager_AirlineModified : PatchBase
+        {
+            protected override MethodInfo GetMethod() =>
+                typeof(VehicleManager).GetMethod(
+                    nameof(VehicleManager.AirlineModified),
+                    BindingFlags.Instance | BindingFlags.Public,
+                    null,
+                    new Type[0],
+                    new ParameterModifier[0]);
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
+            private static bool Prefix(VehicleManager __instance)
+            {
+                for (int i = 0; i < __instance.m_vehicles.m_buffer.Length; ++i)
+                {
+                    var info = __instance.m_vehicles.m_buffer[i].Info;
+                    if (info != null)
+                    {
+                        (info.m_vehicleAI as PassengerPlaneAI)?.SetAirline((ushort)i, ref __instance.m_vehicles.m_buffer[i]);
+                    }
+                }
+
+                return false;
             }
         }
     }
